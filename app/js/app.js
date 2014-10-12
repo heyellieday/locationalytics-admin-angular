@@ -89,7 +89,8 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         url: '/goals',
         title: 'Goals',
         templateUrl: basepath('goals.html'),
-        resolve: resolveFor('flot-chart','flot-chart-plugins')
+        resolve: resolveFor('flot-chart','flot-chart-plugins'),
+        controller: 'GoalsController',
     }) 
     
 
@@ -97,47 +98,17 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         url: '/all-stores',
         title: 'Maps Google',
         templateUrl: basepath('all-stores.html'),
-        controller: 'NullController',
+        controller: 'StoresController',
         resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
     })
 
-    .state('app.z1', {
-        url: '/store-z1',
+    .state('app.store', {
+        url: '/store/:id',
         title: 'Maps Google',
-        templateUrl: basepath('store-z1.html'),
-        controller: 'NullController',
+        templateUrl: basepath('store.html'),
+        controller: 'StoreController',
         resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
     })
-
-    .state('app.z2', {
-        url: '/store-z2',
-        title: 'Maps Google',
-        templateUrl: basepath('store-z2.html'),
-        controller: 'NullController',
-        resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
-    })
-
-
-
-
-/*
-    .state('app.dashboard', {
-        url: '/dashboard',
-        title: 'Dashboard',
-        templateUrl: basepath('dashboard.html'),
-        resolve: resolveFor('flot-chart','flot-chart-plugins')
-    })
-
-    .state('app.dashboard', {
-        url: '/dashboard',
-        title: 'Dashboard',
-        templateUrl: basepath('dashboard.html'),
-        resolve: resolveFor('flot-chart','flot-chart-plugins')
-    })
-*/
-
-
-
 
 
 
@@ -386,8 +357,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         url: '/lock',
         title: "Lock",
         templateUrl: 'app/pages/lock.html'
-    })
-    ;
+    });
 
 
     // Set here the base of the relative path
@@ -530,6 +500,47 @@ App
  * This script handle the calendar demo with draggable 
  * events and events creations
  =========================================================*/
+
+
+    App.controller('StoreController', function($scope, $stateParams, $http) {
+        $scope.id = $stateParams.id;
+        $http.jsonp('https://ituhvgcyyq.localtunnel.me/store/'+ $scope.id +'/count?callback=JSON_CALLBACK').success(function(data) {
+            $scope.visits = data;
+            $scope.visitCountPerHour = Math.ceil($scope.visits.length / 24);
+        });
+         $http.jsonp('https://ituhvgcyyq.localtunnel.me/store/'+ $scope.id +'/duration?callback=JSON_CALLBACK').success(function(data) {
+            $scope.visitors = data;
+            sumOfVisits = 0;
+            for (visitor in $scope.visitors) {
+                sumOfVisits += visitor['length'];
+            }
+            $scope.averageVisitDuration = 10 + Math.ceil(sumOfVisits / $scope.visitors.length);
+        });
+
+    })
+    .controller('StoresController', function($scope) {
+
+
+    })
+    .controller('GoalsController', function($scope, $http) {
+        $http.jsonp('https://ituhvgcyyq.localtunnel.me/store/1/count?callback=JSON_CALLBACK').success(function(data) {
+            visits = data;
+            visitCountPerHour = Math.ceil(visits.length / 24);
+            $http.jsonp('https://ituhvgcyyq.localtunnel.me/store/2/count?callback=JSON_CALLBACK').success(function(data) {
+                $scope.visits = data;
+                $scope.visitCountPerHour = visitCountPerHour + Math.ceil($scope.visits.length / 24);
+            });
+        });
+         $http.jsonp('https://ituhvgcyyq.localtunnel.me/visitor/all_duration?callback=JSON_CALLBACK').success(function(data) {
+            $scope.visitors = data;
+            sumOfVisits = 0;
+            for (visitor in $scope.visitors) {
+                sumOfVisits += visitor['length'];
+            }
+            $scope.averageVisitDuration = Math.ceil(sumOfVisits / $scope.visitors.length);
+        });
+
+ })
 
 App.controller('CalendarController', ['$scope', function($scope) {
   'use strict';
@@ -4362,6 +4373,12 @@ App.factory('colors', ['APP_COLORS', function(colors) {
       return (colors[name] || '#fff');
     }
   };
+
+}]);
+
+App.factory('API_URL', ['', function() {
+  
+  return "https://ituhvgcyyq.localtunnel.me/";
 
 }]);
 

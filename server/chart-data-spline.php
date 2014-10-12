@@ -1,5 +1,9 @@
 <?php
 
+$url = 'https://ituhvgcyyq.localtunnel.me/visitor/all_duration';
+$obj = json_decode(file_get_contents($url), true);
+echo $obj['access_token'];
+
 $data=array(
   array(
      'label' => 'First-Time Customers',

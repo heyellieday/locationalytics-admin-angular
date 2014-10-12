@@ -11,8 +11,8 @@
     "icon": "icon-bag",
     "submenu": [
       {"text": "OVW",       "sref": "app.all-stores", "translate": "sidebar.nav.STORES.OVERVIEW" },
-      {"text": "Z1",       "sref": "app.z1", "translate": "sidebar.nav.STORES.ZONE1" },
-      {"text": "Z2",       "sref": "app.z2", "translate": "sidebar.nav.STORES.ZONE2" },
+      {"text": "Z1",       "sref": "app.store({ id: 1 })", "translate": "sidebar.nav.STORES.ZONE1" },
+      {"text": "Z2",       "sref": "app.store({ id: 2 })", "translate": "sidebar.nav.STORES.ZONE2" },
       {"text": "MM",       "sref": "app.mm", "translate": "sidebar.nav.STORES.MERCHMART" },
       {"text": "MB",       "sref": "app.mb", "translate": "sidebar.nav.STORES.MONKEYBARS" }
     ],
