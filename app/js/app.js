@@ -83,6 +83,66 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         controller: 'AppController',
         resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'store', 'classyloader', 'toaster', 'csspiner')
     })
+
+
+    .state('app.goals', {
+        url: '/goals',
+        title: 'Goals',
+        templateUrl: basepath('goals.html'),
+        resolve: resolveFor('flot-chart','flot-chart-plugins')
+    }) 
+    
+
+    .state('app.all-stores', {
+        url: '/all-stores',
+        title: 'Maps Google',
+        templateUrl: basepath('all-stores.html'),
+        controller: 'NullController',
+        resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
+    })
+
+    .state('app.z1', {
+        url: '/store-z1',
+        title: 'Maps Google',
+        templateUrl: basepath('store-z1.html'),
+        controller: 'NullController',
+        resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
+    })
+
+    .state('app.z2', {
+        url: '/store-z2',
+        title: 'Maps Google',
+        templateUrl: basepath('store-z2.html'),
+        controller: 'NullController',
+        resolve: resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'google-map')
+    })
+
+
+
+
+/*
+    .state('app.dashboard', {
+        url: '/dashboard',
+        title: 'Dashboard',
+        templateUrl: basepath('dashboard.html'),
+        resolve: resolveFor('flot-chart','flot-chart-plugins')
+    })
+
+    .state('app.dashboard', {
+        url: '/dashboard',
+        title: 'Dashboard',
+        templateUrl: basepath('dashboard.html'),
+        resolve: resolveFor('flot-chart','flot-chart-plugins')
+    })
+*/
+
+
+
+
+
+
+
+
     .state('app.dashboard', {
         url: '/dashboard',
         title: 'Dashboard',

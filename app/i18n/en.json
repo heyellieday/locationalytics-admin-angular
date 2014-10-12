@@ -41,6 +41,16 @@
       "MORE": "More"
     },
     "nav": {
+      "GOALS" : "Goals",
+      "STORES": {
+        "STORES": "Stores",
+        "OVERVIEW":"All",
+        "ZONE1": "1871 Zone 1",
+        "ZONE2": "1871 Zone 2",
+        "MONKEYBARS": "Monkeybars",
+        "MERCHMART": "Merchandise Mart"
+      },
+
       "DASHBOARD": "Dashboard",
       "WIDGETS": "Widgets",
       "WIDGETS": "Widgets",

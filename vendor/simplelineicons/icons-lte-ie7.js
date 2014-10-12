@@ -167,7 +167,8 @@ window.onload = function() {
 			'icon-user-male' : '&#xe09e;',
 			'icon-volume-1' : '&#xe09f;',
 			'icon-volume-2' : '&#xe0a0;',
-			'icon-volume-off' : '&#xe0a1;'
+			'icon-volume-off' : '&#xe0a1;',
+			'icon-uparrow' : '&#xe078;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, c, el;
